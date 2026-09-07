@@ -2,7 +2,7 @@
 
 Docker best practices for building, running, and maintaining containerized ROS2 applications in the Adorno Lab RAICo1-based projects.
 
----
+
 
 ## Core Principles
 
