@@ -4,7 +4,7 @@ Docker best practices for building, running, and maintaining containerized ROS2 
 
 ---
 
-## 📋 Core Principles
+## Core Principles
 
 1. **Reproducibility** — Anyone should be able to build and run your container with minimal instructions
 2. **Minimalism** — Keep images small, secure, and fast to build
@@ -13,7 +13,7 @@ Docker best practices for building, running, and maintaining containerized ROS2 
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Base Image
 
@@ -24,12 +24,12 @@ FROM murilomarinho/sas:jazzy
 ```
 
 
-## 💡 Tips from Official Docker Documentation
+## Tips from Official Docker Documentation
 
 These tips are adapted directly from Docker's official [Building best practices](https://docs.docker.com/build/building/best-practices/) guide. Following them ensures your images are secure, efficient, and maintainable.
 
 
-### 📦 Base Images & Layers
+### Base Images & Layers
 
 | Tip | Why It Matters |
 |-----|----------------|
