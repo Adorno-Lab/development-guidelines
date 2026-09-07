@@ -14,10 +14,6 @@ This document defines the software architecture standards for experimental robot
 ### 1.2 Programming Languages
 - **C++17** and **Python 3** (intersection of ROS2 Jazzy and DQ Robotics support)
 
-### 1.3 Base Docker Images
-- All containers must be based on: `murilomarinho/sas:jazzy`
-- **Rationale**: Ensures identical environments across all development and deployment setups
-
 ## 2. Communication Patterns
 
 ### 2.1 ROS2 Interface Selection
@@ -60,28 +56,26 @@ This document defines the software architecture standards for experimental robot
   - Must be documented
   - Must be justified in the implementation
 
-### 4.3 Dependencies
-> If a dependency duplicates functionality already available in DQ Robotics or SAS, it must be removed.
 
-## 5. Modular Architecture
+## 4. Modular Architecture
 
-### 5.1 Node Design
+### 4.1 Node Design
 - Each major component = separate ROS2 node or node composition
 - One node = one well-defined task
 
-### 5.2 Communication
+### 4.2 Communication
 - Nodes communicate **only** via ROS2 interfaces
 - Shared utilities in separate libraries (no code duplication)
 
-### 5.3 Benefits
+### 4.3 Benefits
 - Parallel development
 - Independent testing
 - Easier debugging and profiling
 - Flexible deployment (all-in-one or distributed)
 
-## 6. Reproducibility Requirements
+## 5. Reproducibility Requirements
 
-### 6.1 Mandatory Artifacts
+### 5.1 Mandatory Artifacts
 Every repository must include:
 
 - [x] `Dockerfile` (working environment)
@@ -95,12 +89,13 @@ Every repository must include:
 
 ### 6.3 Containerization Rules
 - Keep containers minimal
-- Base on `murilomarinho/sas:jazzy`
+- All containers that require SAS must be based on: `murilomarinho/sas:jazzy`
+- **Rationale**: Ensures identical environments across all development and deployment setups
 - No unnecessary packages
 
 ## 7. Simulation Requirements
 
-### 7.1 Testing Mandate
+### 7.1 Test in simulation first
 - **All** robot motion controllers must be tested in simulation before deployment
 
 ### 7.2 Simulator Options
