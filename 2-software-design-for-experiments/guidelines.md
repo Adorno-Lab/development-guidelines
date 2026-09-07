@@ -1,7 +1,7 @@
 # Software Design Guidelines for Experimental Setups
 
 ## Overview
-This document defines the software architecture standards for experimental robotics setups in the Adorno Lab. All experimental code must follow these guidelines to ensure reproducibility, maintainability, and performance.
+This document defines the software architecture standards for experimental robotics setups in the Adorno Lab RAICo1-based projects. All experimental code must follow these guidelines to ensure reproducibility, maintainability, and performance.
 
 ## 1. Technology Stack Standardization
 
