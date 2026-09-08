@@ -90,7 +90,7 @@ FROM ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b
 > [!IMPORTANT]
 > Mature demos **must** have frozen Docker images. This means:
 > - Derived images must start from a **specific version** (digest) of the base image
-> - Use **specific tagged versions** of ROS2 packages (not `latest`)
+> - Use **specific tagged versions** of ROS2 packages (not `latest`) or custom libraries (e.g., RobotConstraintManager)
 > - You must have a **local compressed copy** as a backup
 
 **Create a backup with `docker save`:**
