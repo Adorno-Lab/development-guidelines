@@ -25,8 +25,23 @@ FROM murilomarinho/sas:jazzy
 
 If you have multiple images with a lot in common (Ubuntu, ROS2, SAS, DQ Robotics, etc), create a reusable image that includes the shared components. This image should be the base for all your other images. In this way, Docker only needs to build the common base image once, and the derivative images use memory on the Docker host more efficiently and load more quickly.
 
-Let's say you need to deliver a demo using Docker Compose to `n` Docker containers. Instead of creating  `n` images starting from `murilomarinho/sas:jazzy`, and installing all components for each image, you can create one common image (e.g., sas-base-teleoperation-demo) for all of them. Then you create derived images starting from the common base that just copy the corresponding ROS2 packages or configuration files. The common image must be hosted in the Adorno-lab GitHub registry.
+Let's say you need to deliver a demo using Docker Compose to `n` Docker containers. Instead of creating  `n` images starting from `murilomarinho/sas:jazzy`, and installing all components for each image, you can create one common image (e.g., sas-base-teleoperation-demo) for all of them. Then you create derived images starting from the common base that just copy the corresponding ROS2 packages or configuration files. The common image must be hosted in the Adorno-lab GitHub registry. 
 
+> [!NOTE]  
+> Images hosted in the GitHub repository are versioned. For instance, consider [sas_unitree_b1z1_jazzy](https://github.com/Adorno-Lab/sas_unitree_b1z1_control_template/pkgs/container/sas_unitree_b1z1_jazzy). If you need a specific version for your derived images, you can do the following
+>
+> ```shell
+> docker pull ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b305ffb6569901d96bcaee44180d671d66e3e0b
+> ```
+>
+> Then, you can use it in your Docker image:
+> 
+> ```docker
+> FROM: ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b305ffb6569901d96bcaee44180d671d66e3e0b
+> ```
+
+
+ 
 #### Several complete Images (To avoid)
 
 | Image | Component | Task |
@@ -43,6 +58,9 @@ Let's say you need to deliver a demo using Docker Compose to `n` Docker containe
 |`sas-base-teleoperation-demo`|  All required components | Base image |
 | {A,B,..., E} | Specific ROS2 package | Specific application |
 
+
+> [!IMPORTANT]  
+> Mature demos must have frozen Docker images. This means the derived images must start from a specific version and use specific tagged versions of  the ROS2 packages. Furthermore, you must have a local compressed copy (see [Docker save](https://docs.docker.com/reference/cli/docker/image/save/)) as a backup.
 
 
 
