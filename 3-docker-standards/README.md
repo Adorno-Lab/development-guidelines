@@ -60,7 +60,7 @@ Let's say you need to deliver a demo using Docker Compose to `n` Docker containe
 
 
 > [!IMPORTANT]  
-> Mature demos must have frozen Docker images. This means the derived images must start from a specific version and use specific tagged versions of  the ROS2 packages. Furthermore, you must have a local compressed copy (see [Docker save](https://docs.docker.com/reference/cli/docker/image/save/)) as a backup.
+> Mature demos must have frozen Docker images. This means the derived images must start from a specific version and use specific tagged versions of  the ROS2 packages or libraries. Furthermore, you must have a local compressed copy (see [Docker save](https://docs.docker.com/reference/cli/docker/image/save/)) as a backup.
 
 
 
