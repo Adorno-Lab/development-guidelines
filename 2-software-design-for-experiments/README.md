@@ -29,7 +29,7 @@ This document defines the software architecture standards for experimental robot
 ### 2.2 Simulation Communication
 - **DO NOT** use ZMQ Remote API with CoppeliaSim for control loops (poor performance)
 - **USE** SAS with ROS2 integration in CoppeliaSim scenes
-- **Alternative**: Gazebo (with justification)
+- **Alternative**: Gazebo (Others may be allowed with justification)
 
 ## 3. Custom ROS2 Interfaces
 
