@@ -46,6 +46,9 @@ Then, use it in your Dockerfile:
 FROM ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b305ffb6569901d96bcaee44180d671d66e3e0b
 ```
 
+> [!WARNING]
+> This example use an image that does not have suitable tags. For your base image, you need to use tags in the DD_MM_YYYY_HH_MM_SS format. Check [creating-base-images](https://github.com/Adorno-Lab/development-guidelines/blob/main/3-docker-standards/base_images.md#creating-base-images) to know more.
+
 ---
 
 #### Approach to Avoid: Several Complete Images
