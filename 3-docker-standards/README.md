@@ -28,7 +28,7 @@ If you have multiple images with a lot in common (Ubuntu, ROS2, SAS, DQ Robotics
 Let's say you need to deliver a demo using Docker Compose to `n` Docker containers. Instead of creating `n` images starting from `murilomarinho/sas:jazzy` and installing all components for each image, you can create **one common image** (e.g., `sas-base-teleoperation-demo`) for all of them. Then you create derived images starting from the common base that just copy the corresponding ROS2 packages or configuration files.
 
 > [!IMPORTANT]
-> The common image **must** be hosted in the Adorno-Lab GitHub registry (`ghcr.io/adorno-lab/`).
+> The common image **must** be hosted in the Adorno-Lab GitHub registry (`ghcr.io/adorno-lab/`). Check [creating-base-images](https://github.com/Adorno-Lab/development-guidelines/blob/main/3-docker-standards/base_images.md#creating-base-images) to know more.
 
 #### Versioning and Pinning
 
