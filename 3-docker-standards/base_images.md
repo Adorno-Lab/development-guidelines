@@ -19,7 +19,7 @@ Once published, this image is a **public GHCR package**: anyone can pull it, and
 - **No confidential files of any kind** — this includes, but is not limited to: SSH keys, personal access tokens, `.netrc` files, robot network configuration (IP addresses, domain IDs), calibration data, or credentials of any kind, whether copied directly or baked in via build args.
 - **No secrets passed as Docker build args.** Build args are visible in the image history (`docker history`) even if not used in the final layer; never pass tokens or credentials this way.
 
-If your image genuinely needs something from a private repository to build, that dependency does not belong in this workflow — talk to the project lead about restructuring the build (e.g. publishing the needed component separately, or building privately instead of via this public pipeline).
+If your image genuinely needs something from a private repository to build, that dependency does not belong in this workflow — talk to the project lead (or with the person responsible for the software architecture in RAICo) about restructuring the build (e.g. publishing the needed component separately, or building privately instead of via this public pipeline).
 
 ## Create a runner on GitHub Actions
 
