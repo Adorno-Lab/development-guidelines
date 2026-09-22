@@ -25,29 +25,32 @@ FROM murilomarinho/sas:jazzy
 
 If you have multiple images with a lot in common (Ubuntu, ROS2, SAS, DQ Robotics, etc.), create a reusable image that includes the shared components. This image should be the base for all your other images. In this way, Docker only needs to build the common base image **once**, and the derivative images use memory on the Docker host more efficiently and load more quickly.
 
-Let's say you need to deliver a demo using Docker Compose to `n` Docker containers. Instead of creating `n` images starting from `murilomarinho/sas:jazzy` and installing all components for each image, you can create **one common image** (e.g., `sas-base-teleoperation-demo`) for all of them. Then you create derived images starting from the common base that just copy the corresponding ROS2 packages or configuration files.
+Let's say you need to deliver a demo using Docker Compose to `n` Docker containers. Instead of creating `n` images starting from `murilomarinho/sas:jazzy` and installing all components for each image, you can create **one common image** (e.g., `sas-base-teleoperation-demo`) for all of them. Then create derived images from the common base that copy only the corresponding ROS2 packages or configuration files.
 
 > [!IMPORTANT]
-> The common image **must** be hosted in the Adorno-Lab GitHub registry (`ghcr.io/adorno-lab/`). Check [creating-base-images](https://github.com/Adorno-Lab/development-guidelines/blob/main/3-docker-standards/base_images.md#creating-base-images) to know more.
+> The common image **must** be hosted in the Adorno-Lab GitHub registry (`ghcr.io/adorno-lab/`), and its `Dockerfile` and publishing workflow **must live in** [`Adorno-Lab/raico_base_images`](https://github.com/Adorno-Lab/raico_base_images) — not in your own project's repository. That repo centralizes every lab base image under `images/<project_name>/<experiment_name>/Dockerfile`, requires changes to go through a reviewed pull request, and publishes on merge. Check [creating-base-images](https://github.com/Adorno-Lab/development-guidelines/blob/main/3-docker-standards/base_images.md#creating-base-images) and that repo's own `CONTRIBUTING.md` to know more.
 
 #### Versioning and Pinning
 
-Images hosted in the GitHub repository are versioned. For instance, consider [`sas_unitree_b1z1_jazzy`](https://github.com/Adorno-Lab/sas_unitree_b1z1_control_template/pkgs/container/sas_unitree_b1z1_jazzy).
+Images hosted in the GitHub repository are versioned. For instance, consider [`robot_laser_cutting/demo1_drawing_task`](https://github.com/Adorno-Lab/raico_base_images/pkgs/container/robot_laser_cutting%2Fdemo1_drawing_task).
 
-If you need a specific version for your derived images, you can pull by digest:
+Every successful run tags the image with a timestamp in the `DD_MM_YYYY_HH_MM_SS` format (UTC), so you can pull an exact, reproducible build instead of always tracking `latest`:
 
 ```shell
-docker pull ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b305ffb6569901d96bcaee44180d671d66e3e0b
+docker pull ghcr.io/adorno-lab/robot_laser_cutting/demo1_drawing_task:22_09_2026_10_20_59
+```
+
+If you need a specific version for your derived images, you can also pull by digest:
+
+```shell
+docker pull ghcr.io/adorno-lab/robot_laser_cutting/demo1_drawing_task@sha256:8d08e0b8d14dc456efce0b276314e60fc250b7bac6b928de85f12868b09e1fea
 ```
 
 Then, use it in your Dockerfile:
 
 ```dockerfile
-FROM ghcr.io/adorno-lab/sas_unitree_b1z1_jazzy@sha256:b71d66fe338d2a05db7c10c78b305ffb6569901d96bcaee44180d671d66e3e0b
+FROM ghcr.io/adorno-lab/robot_laser_cutting/demo1_drawing_task@sha256:8d08e0b8d14dc456efce0b276314e60fc250b7bac6b928de85f12868b09e1fea
 ```
-
-> [!WARNING]
-> This example use an image that does not have suitable tags. For your base image, you need to use tags in the DD_MM_YYYY_HH_MM_SS format. Check [creating-base-images](https://github.com/Adorno-Lab/development-guidelines/blob/main/3-docker-standards/base_images.md#creating-base-images) to know more.
 
 ---
 
