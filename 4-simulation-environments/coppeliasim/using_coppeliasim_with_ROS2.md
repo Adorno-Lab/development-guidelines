@@ -1,6 +1,6 @@
 # ROS2 with CoppeliaSim
  
-### Set your Python environment
+## Set your Python environment
 
 In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS installed on your system.
 
@@ -40,3 +40,15 @@ Now, modify the `usrset.txt` file to
 ```python3
 defaultPython = /home/juanjqo/coppeliasim_venv/bin/python3 // e.g. c:/Python38/python.exe
 ```
+
+
+## Examples
+
+### Vision sensor
+
+To publish vision sensor data in CoppeliaSim to a ROS2 topic, add a non-threaded Python script as a child of the visual sensor. The visual sensor's name will be used as the topic name. Therefore, choose a unique name in `snake_case` format
+
+<img width="800" alt="Screenshot from 2026-09-29 14-01-02" src="https://github.com/user-attachments/assets/196b1d39-3446-4fc4-a7ed-61f8cf909aa5" />
+
+
+[Example here](https://github.com/Adorno-Lab/development-guidelines/tree/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor)
