@@ -50,5 +50,6 @@ To publish vision sensor data in CoppeliaSim to a ROS2 topic, add a non-threaded
 
 <img width="800" alt="Screenshot from 2026-09-29 14-01-02" src="https://github.com/user-attachments/assets/196b1d39-3446-4fc4-a7ed-61f8cf909aa5" />
 
+Edit the Python script according to this file [vision_sensor_with_ROS2.py](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor/vision_sensor_with_ROS2.py)
 
-[Example here](https://github.com/Adorno-Lab/development-guidelines/tree/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor)
+Full scene available here: [vision_sensor_with_ROS2.ttt](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor/vision_sensor_with_ROS2.ttt)
