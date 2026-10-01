@@ -1,6 +1,6 @@
 # Documentation
 
-Every Adorno Lab repository must provide Doxygen documentation for its code (see [Mandatory Artifacts](../2-software-design-for-experiments/README.md#51-mandatory-artifacts)). The documentation is published as a website on GitHub Pages and rebuilt automatically by GitHub Actions on every merge to `main`.
+Every Adorno Lab repository must provide Doxygen documentation for its code (see [Mandatory Artifacts](../2-software-design-for-experiments/README.md#51-mandatory-artifacts)). For all **public** repositories, the documentation is published as a website on GitHub Pages and rebuilt automatically by GitHub Actions on every merge to `main`.
 
 Example: [`unitree_drivers`](https://github.com/Adorno-Lab/unitree_drivers), published at [adorno-lab.github.io/unitree_drivers](https://adorno-lab.github.io/unitree_drivers/).
 
