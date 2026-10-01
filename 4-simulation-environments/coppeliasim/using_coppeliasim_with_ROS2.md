@@ -86,8 +86,8 @@ ros2 topic pub -r 20 /sas_b1/b1_1/set/holonomic_target_twist geometry_msgs/msg/T
 > [!NOTE]
 > The base stops if no command arrives for 0.5 s (`CMD_TIMEOUT_SEC` in the script). Therefore, publish continuously (`-r 20`). Press `Ctrl+C` to stop the base.
 
-> [!WARNING]
-> Use small values. For instance, `x: 0.1` drives the base at roughly 1.3 m/s, which reaches the edge of the 5 m x 5 m floor in about 2 s.
+> [!NOTE]
+> The twist is expressed in the base frame, in m/s and rad/s. For instance, `x: 0.1` drives the base forward at 0.1 m/s. The compensating factors in the script are derived from the wheel geometry: `LINEAR_GAIN = 1/r` and `ANGULAR_GAIN = (lx + ly)/r`, where `r = 0.05 m` is the wheel radius, and `lx = 0.228 m` and `ly = 0.1585 m` are the distances from the base center to the wheels along the x-axis and y-axis, respectively.
 
 To check that the scene is subscribed to the topic (`coppeliasim_holonomic_base` should appear as a subscriber):
 
