@@ -1,5 +1,11 @@
 # ROS2 with CoppeliaSim
 
+## Requirements
+
+- Ubuntu 24.04 LTS
+- ROS2 Jazzy
+- CoppeliaSim 4.7.0-rev4
+
 ## Set your Python environment
 
 In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS installed on your system.
