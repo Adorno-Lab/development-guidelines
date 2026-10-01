@@ -95,6 +95,12 @@ To check that the scene is subscribed to the topic (`coppeliasim_holonomic_base`
 ros2 topic info -v /sas_b1/b1_1/set/holonomic_target_twist
 ```
 
+The script also publishes the measured twist of the base on `/sas_b1/b1_1/get/holonomic_twist` (`geometry_msgs/msg/TwistStamped`) after every simulation step. It uses the same fields and units as the command, expressed in the base frame (`header.frame_id` is `trunk_respondable`), so you can compare both directly:
+
+```shell
+ros2 topic echo /sas_b1/b1_1/get/holonomic_twist
+```
+
 > [!TIP]
 > In CoppeliaSim 4.7, the path `'.'` refers to the script object itself, not to the object it is attached to. That is why the script uses `ROBOT_BASE_PATH = '..'` to get the robot base.
 
