@@ -15,6 +15,7 @@ In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS inst
 
 > [!NOTE]
 > In this example, we use a virtual environment to install the dependencies.
+>
 > Create a virtual environment
 >
 > ```shell
