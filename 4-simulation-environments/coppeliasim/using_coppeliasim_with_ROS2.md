@@ -1,5 +1,5 @@
 # ROS2 with CoppeliaSim
- 
+
 ## Set your Python environment
 
 In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS installed on your system.
@@ -33,13 +33,26 @@ In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS inst
 >
 >
 > ```shell
-> cd ~ /coppeliasim_venv/bin
 > python3 -m pip install pyzmq cbor2 dqrobotics setuptools pyyaml numpy
+> ```
+
+> [!IMPORTANT]
+> Create the venv with the same Python version used by your ROS2 distribution (e.g., Python 3.12 for ROS2 Jazzy on Ubuntu 24.04). Otherwise, `rclpy` cannot be imported.
 
 Now, modify the `usrset.txt` file to 
 
-```python3
-defaultPython = /home/juanjqo/coppeliasim_venv/bin/python3 // e.g. c:/Python38/python.exe
+```text
+defaultPython = /home/<your-user>/coppeliasim_venv/bin/python3 // e.g. c:/Python38/python.exe
+```
+
+## Launch CoppeliaSim
+
+The Python scripts import `rclpy`, which is provided by ROS2 and not by the venv. Therefore, launch CoppeliaSim from a terminal where ROS2 is sourced. If you launch it from a desktop icon or a file manager, the scripts fail with `ModuleNotFoundError: No module named 'rclpy'`.
+
+```shell
+source /opt/ros/jazzy/setup.bash
+cd ~/Downloads/CoppeliaSim_Edu_V4_7_0_rev4_Ubuntu24_04
+./coppeliaSim.sh
 ```
 
 
@@ -47,7 +60,7 @@ defaultPython = /home/juanjqo/coppeliasim_venv/bin/python3 // e.g. c:/Python38/p
 
 ### Vision sensor
 
-To publish vision sensor data in CoppeliaSim to a ROS2 topic, add a non-threaded Python script as a child of the visual sensor. The visual sensor's name will be used as the topic name. Therefore, choose a unique name in `snake_case` format
+To publish vision sensor data in CoppeliaSim to a ROS2 topic, add a non-threaded Python script as a child of the vision sensor. The vision sensor's name will be used as the topic name. Therefore, choose a unique name in `snake_case` format
 
 <img width="800" alt="Screenshot from 2026-09-29 14-01-02" src="https://github.com/user-attachments/assets/196b1d39-3446-4fc4-a7ed-61f8cf909aa5" />
 
@@ -58,13 +71,34 @@ Full scene available here: [vision_sensor_with_ROS2.ttt](https://github.com/Ador
 
 ### Holonomic mobile platform
 
-This example shows how to command a holonomic mobile platform in CoppeliaSim using a ROS2 topic
+This example shows how to command a holonomic mobile platform in CoppeliaSim using a ROS2 topic. Tested with CoppeliaSim 4.7.0 rev4 and ROS2 Jazzy.
 
 <img width="800"  alt="Screenshot from 2026-10-01 11-50-38" src="https://github.com/user-attachments/assets/8f5a4346-4c85-433b-9837-d41de7670df4" />
+
+The script `holonomic_cmd` (child of `trunk_respondable`) subscribes to a `geometry_msgs/msg/TwistStamped` topic and maps `twist.linear.x`, `twist.linear.y`, and `twist.angular.z` to the wheel velocities.
+
+Start the simulation and, in a terminal with ROS2 sourced, publish a command:
 
 ```shell
 ros2 topic pub -r 20 /sas_b1/b1_1/set/holonomic_target_twist geometry_msgs/msg/TwistStamped "{twist: {linear: {x: 0.05, y: 0.05}, angular: {z: 0.2}}}"
 ```
+
+> [!NOTE]
+> The base stops if no command arrives for 0.5 s (`CMD_TIMEOUT_SEC` in the script). Therefore, publish continuously (`-r 20`). Press `Ctrl+C` to stop the base.
+
+> [!WARNING]
+> Use small values. For instance, `x: 0.1` drives the base at roughly 1.3 m/s, which reaches the edge of the 5 m x 5 m floor in about 2 s.
+
+To check that the scene is subscribed to the topic (`coppeliasim_holonomic_base` should appear as a subscriber):
+
+```shell
+ros2 topic info -v /sas_b1/b1_1/set/holonomic_target_twist
+```
+
+> [!TIP]
+> In CoppeliaSim 4.7, the path `'.'` refers to the script object itself, not to the object it is attached to. That is why the script uses `ROBOT_BASE_PATH = '..'` to get the robot base.
+
+Edit the Python script according to this file [holonomic_cmd.py](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/holonomic_base/holonomic_cmd.py)
 
 Scene available here: [holonomic_b1.ttt](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/holonomic_base/holonomic_b1.ttt)
 
