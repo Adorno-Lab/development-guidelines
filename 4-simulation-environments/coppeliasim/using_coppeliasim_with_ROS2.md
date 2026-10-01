@@ -54,3 +54,18 @@ To publish vision sensor data in CoppeliaSim to a ROS2 topic, add a non-threaded
 Edit the Python script according to this file [vision_sensor_with_ROS2.py](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor/vision_sensor_with_ROS2.py)
 
 Full scene available here: [vision_sensor_with_ROS2.ttt](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/vision_sensor/vision_sensor_with_ROS2.ttt)
+
+
+### Holonomic mobile platform
+
+This example shows how to command a holonomic mobile platform in CoppeliaSim using a ROS2 topic
+
+<img width="800"  alt="Screenshot from 2026-10-01 11-50-38" src="https://github.com/user-attachments/assets/8f5a4346-4c85-433b-9837-d41de7670df4" />
+
+```shell
+ros2 topic pub -r 20 /sas_b1/b1_1/set/holonomic_target_twist geometry_msgs/msg/TwistStamped "{twist: {linear: {x: 0.05, y: 0.05}, angular: {z: 0.2}}}"
+```
+
+Scene available here: [holonomic_b1.ttt](https://github.com/Adorno-Lab/development-guidelines/blob/main/4-simulation-environments/coppeliasim/scenes/ROS2/holonomic_base/holonomic_b1.ttt)
+
+
