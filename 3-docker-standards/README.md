@@ -129,3 +129,7 @@ docker load < sas-base-teleoperation-demo.tar.gz
 - [ ] Documentation lists the exact base image digest used
 - [ ] CI/CD builds the common base **only** when shared dependencies change
 - [ ] CI/CD builds all derived images on every commit
+
+### 3. Running and Rebuilding with Docker Compose
+
+When a demo runs several containers, rebuild **only** the service you changed instead of all of them. See [Docker Compose: build only what you changed](docker_compose_commands.md) for which command to use and when the `--build`, `--no-deps`, and `--no-cache` flags are appropriate.
