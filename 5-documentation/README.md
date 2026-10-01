@@ -1,17 +1,23 @@
 # Documentation
 
-Every Adorno Lab repository must provide Doxygen documentation for its code (see [Mandatory Artifacts](../2-software-design-for-experiments/README.md#51-mandatory-artifacts)). For all **public** repositories, the documentation is published as a website on GitHub Pages and rebuilt automatically by GitHub Actions on every merge to `main`.
+Every Adorno Lab repository must provide Doxygen documentation for its code (see [Mandatory Artifacts](../2-software-design-for-experiments/README.md#51-mandatory-artifacts)). How the documentation is delivered depends on the repository's visibility:
 
-Example: [`unitree_drivers`](https://github.com/Adorno-Lab/unitree_drivers), published at [adorno-lab.github.io/unitree_drivers](https://adorno-lab.github.io/unitree_drivers/).
+| Repository | Documentation | Guide |
+|------------|---------------|-------|
+| **Public** | Published as a website on GitHub Pages and rebuilt automatically by GitHub Actions on every merge to `main` | [Deploy the documentation to GitHub Pages](deploy_to_github_pages.md) |
+| **Private** | **Must not** be published on GitHub Pages. Generated locally and committed in a `docs/` folder, with instructions in the `README.md` to regenerate it | [Documentation for private repositories](docs_for_private_repositories.md) |
+
+Example of a public repository: [`unitree_drivers`](https://github.com/Adorno-Lab/unitree_drivers), published at [adorno-lab.github.io/unitree_drivers](https://adorno-lab.github.io/unitree_drivers/).
 
 
 
 ## Core Principles
 
 1. **Documentation lives with the code** — The API reference comes from Doxygen comments in the headers and sources, and the repository's `README.md` is the home page of the site. There is no separate documentation to keep in sync.
-2. **Published automatically** — Nobody builds or uploads the site by hand. Merging to `main` updates it.
-3. **Self-contained repositories** — Each repository contains its **own** `Doxyfile` and workflow. There is no shared or central workflow, so a repository can be built, read, and changed without looking anywhere else.
-4. **Warnings are errors** — Pull requests build the documentation and fail if Doxygen reports any warning, so broken documentation never reaches `main`.
+2. **Published automatically (public repositories)** — Nobody builds or uploads the site by hand. Merging to `main` updates it.
+3. **Private code stays private** — A GitHub Pages site is public even when the repository is private, so private repositories never use it. Their documentation is committed in `docs/` instead.
+4. **Self-contained repositories** — Each repository contains its **own** `Doxyfile` (and, if public, its own workflow). There is no shared or central workflow, so a repository can be built, read, and changed without looking anywhere else.
+5. **Warnings are errors** — Doxygen must not report any warning. In public repositories, the pull request check enforces it; in private repositories, the author checks it locally before committing.
 
 
 ## Tools
@@ -19,22 +25,37 @@ Example: [`unitree_drivers`](https://github.com/Adorno-Lab/unitree_drivers), pub
 | Tool | Role |
 |------|------|
 | [Doxygen](https://www.doxygen.nl/) (pinned version, currently `1.18.0`) | Generates the HTML site from the code comments and Markdown files |
-| [GitHub Actions](https://docs.github.com/en/actions) | Builds the site on pull requests and deploys it on merges to `main` |
-| [GitHub Pages](https://docs.github.com/en/pages) | Hosts the site at `https://adorno-lab.github.io/<repository_name>/` |
+| [GitHub Actions](https://docs.github.com/en/actions) | **Public repositories only.** Builds the site on pull requests and deploys it on merges to `main` |
+| [GitHub Pages](https://docs.github.com/en/pages) | **Public repositories only.** Hosts the site at `https://adorno-lab.github.io/<repository_name>/` |
 
 
 ## Quick Start
 
-A repository needs three files and one setting:
+### Public repositories
+
+A public repository needs three files and one setting:
 
 | What | Where | Purpose |
 |------|-------|---------|
-| `Doxyfile` | Repository root | What to document and how |
+| `Doxyfile` | Repository root | What to document and how (output to `build/docs`) |
 | `doxygen-pages.yml` | `.github/workflows/` | Builds and deploys the site |
 | `build/` entry | `.gitignore` | Keeps the generated HTML out of Git |
 | Pages source: **GitHub Actions** | Settings → Pages | Allows the workflow to publish (one time) |
 
 Follow [Deploy the documentation to GitHub Pages](deploy_to_github_pages.md) for the files to copy and the step-by-step setup.
+
+### Private repositories
+
+A private repository needs:
+
+| What | Where | Purpose |
+|------|-------|---------|
+| `Doxyfile` | Repository root | What to document and how (output to `docs/`) |
+| Generated documentation, committed | `docs/` | The documentation itself, regenerated with every code change |
+| `docs/** linguist-generated=true` | `.gitattributes` | Collapses `docs/` in pull request diffs |
+| **Documentation** section | `README.md` | How to open and regenerate `docs/` |
+
+It **must not** have a GitHub Pages site or the `doxygen-pages.yml` workflow. Follow [Documentation for private repositories](docs_for_private_repositories.md) for the step-by-step setup.
 
 
 ## Writing Documentation Comments

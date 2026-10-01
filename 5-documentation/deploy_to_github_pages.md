@@ -2,6 +2,9 @@
 
 This guide sets up a repository so that its Doxygen documentation is published at `https://adorno-lab.github.io/<repository_name>/` and updated automatically on every merge to `main`. It takes about 15 minutes.
 
+> [!IMPORTANT]
+> This guide is for **public** repositories only. Private repositories **must not** publish anything on GitHub Pages; follow [Documentation for private repositories](docs_for_private_repositories.md) instead.
+
 The files below are the ones used in [`unitree_drivers`](https://github.com/Adorno-Lab/unitree_drivers). Copy them into your repository and adapt only the parts marked in each step.
 
 > [!NOTE]
@@ -252,13 +255,13 @@ Because each repository contains its own workflow, upgrade each repository separ
 | The pull request check fails at **Build documentation** | Doxygen reported a warning. Open the failed job; the log shows the file, the line, and the reason. Fix it and push again. |
 | The site still shows old content | Check that the latest run on `main` finished successfully in the **Actions** tab, then reload the page without the cache (`Ctrl+Shift+R`). |
 | A page shows a **Note** or **Warning** box containing only a fragment of text, or a sentence is cut | A section command is used in the middle of a sentence. See [Common Pitfalls](README.md#common-pitfalls). |
-| **Settings → Pages** is not available, or says Pages requires an upgrade | The repository is private and the organization's plan does not include Pages for private repositories. Ask the project lead. |
 
 > [!CAUTION]
-> A GitHub Pages site is **public** even when the repository is private (unless the organization uses GitHub Enterprise Cloud with private Pages). Do not enable Pages on a private repository whose code or comments must not be public.
+> Never enable GitHub Pages on a **private** repository: a Pages site is public even when the repository is private. If a public repository becomes private, unpublish its site first; see [Changing the repository's visibility](docs_for_private_repositories.md#changing-the-repositorys-visibility).
 
 ## Checklist
 
+- [ ] The repository is **public**
 - [ ] `Doxyfile` in the repository root, with `PROJECT_NAME`, `PROJECT_BRIEF`, and `INPUT` adapted
 - [ ] `build/` in `.gitignore`
 - [ ] Local build with warnings as errors passes (step 3)
