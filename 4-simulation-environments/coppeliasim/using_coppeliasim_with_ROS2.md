@@ -39,6 +39,7 @@ In the `usrset.txt` file, set the Python path. Ensure you have ROS2 and SAS inst
 >
 >
 > ```shell
+> cd ~/coppeliasim_venv/bin
 > python3 -m pip install pyzmq cbor2 dqrobotics setuptools pyyaml numpy
 > ```
 
